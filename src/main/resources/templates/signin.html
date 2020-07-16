@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Sign in</title>
+	<link href="/css/style.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" />
+</head>
+<body>
+<div class="container">
+	<div class="wrapper">
+		<h2>Please Sign in</h2>
+		<div th:if="${param.error}" class="error-message">Invalid username and password</div>
+		<div th:if="${param.logout}" class="error-message">You have been logged out</div>
+		
+		<form th:action="@{/signin}" method="post">
+			<table>
+				<tbody>
+					<tr>
+						<td class="title">
+							<label for="username">Username</label>
+						</td>	
+						<td class="input-field">
+							<input class="input" type="text" name="username" id="username" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td class="title">
+							<label for="password">Password</label>
+						</td>	
+						<td class="input-field">
+							<input class="input" type="password" name="password" id="password" required="required">
+							<span>
+								<button id="toggleBtn" class="fas fa-eye toggler-ico" type="button">&nbsp;</button>
+							</span>
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<p class="rememberMe">
+				<input type="checkbox" name="remember-me" id="remember-me">
+				<label for="remember-me">Remember me</label>
+			</p>
+	
+			<button class="btn" type="submit">Log in</button>
+			
+			<p class="link">
+				Not Registered Yet? <a th:href="@{/signup}">Sign up</a>
+			</p>
+		</form>
+	</div>
+</div>
+<script src="/js/main.js"></script>
+</body>
+</html>

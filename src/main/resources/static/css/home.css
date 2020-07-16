@@ -1,0 +1,98 @@
+.name-box{
+	text-align: center;
+}
+
+.account-section{
+	border: 1px solid #cad2d9;
+	margin: 60px auto;
+	padding: 20px 0;
+	width: 400px;
+	box-shadow: 2px 3px 7px 3px #40807E;
+	border-radius: 5px;
+}
+
+h4{
+	margin: 0;
+	padding: 0 10px 20px 10px;
+	text-decoration: underline;
+}
+
+.deposit-section, .withdraw-section{
+	border: 1px solid #404040;
+	background: #404040;
+	color: #cad2d9;
+	margin: 30px;
+	padding: 20px 0px 20px 12px;
+	width: 300px;
+	box-shadow: 2px 3px 7px 3px #40807E;
+	border-radius: 5px;
+}
+
+.title{
+	width: 32%;
+    white-space: nowrap;
+    color: #cecece;
+    text-align: right;
+    padding-right: 1em;
+}
+
+.input-field{
+	padding: 8px;
+}
+
+.input{
+	width: 60%;
+    padding: 3px 5px;
+	margin: 0;
+	border-radius: 5px;
+	border: 0;
+	outline: 0;
+	background: #cad2d9;
+}	
+
+.input-currency{
+    width: 2.5rem;
+    position: relative;
+    left: -75px;
+}
+
+.btn{
+	border-radius: 5px;
+	text-align: center;
+	padding: 4px 12px;
+	font-size: 15px; 
+	width: 30%;
+	border: none;
+	outline:0;
+	cursor: pointer;
+	box-shadow: 0 1px 1px 0 #ccc;
+	background-color: #cad2d9;
+	margin-top: 20px;
+	left: 178px;
+	position: relative;
+}
+
+.btn:hover{
+	box-shadow: 0 2px 2px 0 white;
+}
+
+.section-wrapper{
+	display: flex;
+	justify-content: center;
+}
+
+.content-position{
+	margin: 0 auto;
+}
+
+.view-transactions{
+	text-decoration: none;
+	position: relative;
+    left: 6rem;
+    top: 25px;
+    font-size: 14px;
+}
+
+.view-transactions:hover{
+	text-decoration: underline;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Personal Information</title>
+	<link href="/css/userInformation.css" rel="stylesheet">
+	<link href="/css/transfer.css" rel="stylesheet">
+	<link href="/css/home.css" rel="stylesheet">
+	<link href="/css/accountInformation.css" rel="stylesheet">
+</head>
+<head th:replace="header :: header"/>
+<head th:replace="header :: navbar"/>
+<body>
+<div class="basic-container">
+<h4>Account Information</h4>
+	<table>
+		<tbody>
+			<tr>
+				<td class="title">
+					<label for="accountType">Account Type:</label>
+				</td>
+				<td class="input-field">
+					<span th:text="${user.accountType}"></span> Account
+				</td>
+			</tr>
+			<tr>
+				<td class="title">
+					<label for="accountNumber">Account Number:</label>
+				</td>
+				<td class="input-field">
+					<span th:text="${user.account.accountNumber}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="title">
+					<label for="iban">IBAN Number:</label>
+				</td>
+				<td class="input-field">
+					<span th:text="${user.account.accountDetails.iban}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="title">
+					<label for="accountType">Card Number:</label>
+				</td>
+				<td class="input-field">
+					<span th:text="${user.account.accountDetails.cardNumber}"></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+
+.recipient-container{
+	border: 1px solid #404040;
+	background: #404040;
+	color: #cad2d9;
+	margin: 30px auto;
+	padding: 20px 0px 20px 12px;
+	width: 470px;
+	box-shadow: 2px 3px 7px 3px #40807E;
+	border-radius: 10px;
+}
+
+h2{
+	text-align: center;
+}
+
+.btn-recipient{
+	border-radius: 5px;
+	text-align: center;
+	padding: 4px 12px;
+	font-size: 15px; 
+	width: 65px;
+	border: none;
+	outline:0;
+	cursor: pointer;
+	box-shadow: 0 1px 1px 0 #ccc;
+	background-color: #cad2d9;
+	margin: 20px 0;
+	left: 365px;
+	position: relative;
+}
+
+.input-recipient{
+	width: 100%;
+    padding: 3px 5px;
+	margin: 0;
+	border-radius: 5px;
+	border: 0;
+	outline: 0;
+	background: #cad2d9;
+}	

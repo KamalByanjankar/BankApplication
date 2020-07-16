@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Recipient</title>
+	<link href="/css/recipient.css" rel="stylesheet">	
+	<link href="/css/home.css" rel="stylesheet">
+</head>
+<head th:replace="header :: header"/>
+<head th:replace="header :: navbar"/>
+<body>
+<div class="recipient-container">
+	<h2>Please add the recipient Details</h2>
+	<form th:action="@{/home/accounts/recipient/save}" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<input type="hidden" name="id" th:value="${recipient.id}">
+				</td>
+			</tr>
+			<tr>
+				<td class="title">
+					<label for="recipientName">Recipient Name</label>
+				</td>	
+				<td class="input-field">
+					<input class="input-recipient" th:value="${recipient.recipientName}" type="text" name="recipientName" id="recipientName" required="required">
+				</td>
+			</tr>
+			<tr>
+				<td class="title">
+					<label for="accountNumber">Account Number</label>
+				</td>	
+				<td class="input-field">
+					<input class="input-recipient" th:value="${recipient.accountNumber}" type="text" name="accountNumber" id="accountNumber" required="required">
+				</td>
+			</tr>
+			<tr>
+				<td class="title">
+					<label for="description">Description</label>
+				</td>	
+				<td class="input-field">
+					<input class="input-recipient" th:value="${recipient.description}" type="text" name="description" id="description" required="required">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<button class="btn-recipient" th:type="submit">Next</button>
+	</form>
+</div>
+</body>
+</html>

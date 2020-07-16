@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Sign up</title>
+	<link href="/css/style.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" />
+</head>
+<body>
+<div class="container">
+	<div class="wrapper">
+		<h2>Please Sign up</h2>
+		<div th:if="${usernameExists}"><span style="color:red">Username already exists</span></div>
+		<div th:if="${emailExists}"><span style="color:red">Email already exists</span></div>
+		<div th:classappend="${classActiveNewAccount}? 'active'">
+			<form th:action="@{/signup}" method="post">
+			<table>
+				<tbody>
+					<tr>
+						<td class="title">
+							<label for="firstName">First Name</label>
+						</td>
+						<td class="input-field">
+							<input class="input" type="text" th:value="${firstName}" name="firstName" id="firstName" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td class="title">
+							<label for="lastName">Last Name</label>
+						</td>
+						<td class="input-field">
+							<input class="input" type="text" th:value="${lastName}" name="lastName" id="lastName" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td class="title">
+							<label for="email">Email</label>
+						</td>
+						<td class="input-field">
+							<input class="input" type="text" th:value="${email}" name="email" id="email" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td class="title">
+							<label for="socialSecurityNumber">Social Security Number</label>
+						</td>
+						<td class="input-field">
+							<input class="input" type="text" th:value="${socialSecurityNumber}" name="socialSecurityNumber" id="socialSecurityNumber" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td class="title">
+							<label for="accountType">Account Type</label>
+						</td>
+						<td class="input-field">
+							<select class="input" th:value="${accounType}" name="accountType" id="accountType" required="required">
+								<option selected="selected" disabled="disabled">Select an account type to open</option>
+								<option>Checking</option>	
+								<option>Saving</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">
+							<label for="username">Username</label>
+						</td>
+						<td class="input-field">
+							<input class="input" type="text" th:value="${username}" name="username" id="username" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td class="title">
+							<label for="password">Password</label>
+						</td>
+						<td class="input-field">
+							<input class="input" type="password" th:value="${password}" name="password" id="password" required="required">
+							<span><button id="toggleBtn" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		
+			<button class="btn" type="submit">Create Account</button>
+				
+			<p class="link">Already have an account? <a th:href="@{/signin}">Sign in</a><p> 
+			
+			</form>
+		</div>
+	</div>
+</div>	
+<script src="/js/main.js"></script>
+</body>
+</html>

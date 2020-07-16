@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Transfer</title>
+	<link href="/css/transfer.css" rel="stylesheet">
+	<link href="/css/home.css" rel="stylesheet">
+</head>
+<head th:replace="header :: header"/>
+<head th:replace="header :: navbar"/>
+<body>
+<div class="transfer-container">
+<h4>Transfer</h4>
+	<form th:action="@{/home/accounts/transfer}" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="title">
+					<label for="amount">Amount</label>
+				</td>
+				<td class="input-field">
+					<input class="input-transfer" th:value="${amount}" type="text" name="amount" id="amount" required="required" placeholder="00.00">
+				</td>
+				<td class="input-field">
+					<input class="transfer-currency input" type="text" name="currency" id="currency" value="EUR" readonly>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<button class="btn" th:type="submit">Transfer</button>
+	</form>
+</div>
+	
+<div class="section-wrapper">
+	<div class="sender-container">
+		<h4>Sender Information</h4>
+		<table>
+			<tbody>
+				<tr>
+					<td class="title">
+						<label for="name">Full Name:</label>
+					</td>
+					<td class="input-field">
+						<span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span> 
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="accountNumber">Account Number:</label>
+					</td>	
+					<td class="input-field">
+						<span th:text="${account.accountNumber}"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="balance">Total Balance:</label>
+					</td>	
+					<td class="input-field">
+						<span th:text="${accountDetails.balance}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="receiver-container">
+		<h4>Receiver Information</h4>
+		<table>
+			<tbody>
+				<tr>
+					<td class="title">
+						<label for="name">Full Name:</label>
+					</td>
+					<td class="input-field">
+						<span th:text="${recipient.recipientName}"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="accountNumber">Account Number:</label>
+					</td>	
+					<td class="input-field">
+						<span th:text="${recipient.accountNumber}"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="description">Description:</label>
+					</td>	
+					<td class="input-field">
+						<span th:text="${recipient.description}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

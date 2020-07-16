@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>User Information</title>
+</head>
+<head th:replace="header :: header"/>
+<head th:replace="header :: navbar"/>
+<body>
+	<div align="center">
+		<h2>Additional Details</h2>
+		<form th:action="@{/user/userProfile}" th:object="${userProfile}" method="post">
+			<div>
+			<br>
+				<span>Address</span>
+				<input type="text" th:value="${address}" name="address" id="address" required="required">
+			</div>
+			<div>
+				<br>
+				<span>City</span>
+				<input type="text" th:value="${city}" name="city" id="city" required="required">
+			</div>
+			<div>
+				<br>
+				<span>State</span>
+				<input type="text" th:value="${state}" name="state" id="state" required="required">
+			</div>
+			<div>
+				<br>
+				<span>Zip Code</span>
+				<input type="text" th:value="${zipCode}" name="zipCode" id="zipCode" required="required">
+			</div>
+			<div>
+			<br>
+				<label for="gender">Gender</label>
+				<select th:value="${gender}" name="gender" id="gender" required="required">
+					<option selected="selected" disabled="disabled">Select your gender</option>
+					<option>Male</option>
+					<option>Female</option>
+				</select>
+			</div>
+			<div>
+				<br>
+				<span>Date of Birth</span>
+				<input type="date" th:value="${dob}" name="dob" id="dob" required="required">
+			</div>
+			
+			<div>
+				<br>
+				<button type="submit">Finish</button>
+			</div>	
+		</form>
+	</div>
+	
+</body>
+</html>

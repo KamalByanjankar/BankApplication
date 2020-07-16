@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:fragment="header">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link href="/css/header.css" rel="stylesheet"/>
+</head>
+<body>
+<div th:fragment="navbar">
+	<nav class="navigation-header">
+		<div class="container">
+			<ul>
+				<li><a th:href="@{/home}">Home</a></li>
+<!-- 				<li><a th:href="@{/home/accounts/deposit}">Deposit</a></li> -->
+<!-- 				<li><a th:href="@{/home/accounts/withdraw}">Withdraw</a></li> -->
+				<li><a th:href="@{/home/accounts/recipient}">Transfer</a></li>
+				<li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/userDetails}">Admin</a></li>
+			</ul>
+			<ul class="navbar-right">
+	            <li class="dropdown">
+	                <a href="#" class="dropdown-toggle">Profile</a>
+	                <ul class="dropdown-content">
+	                    <li><a th:href="@{/user/userInformation}">About Me</a></li>
+	                    <li><a th:href="@{/user/accountInformation}">Account Information</a></li>
+	                    <li><a th:href="@{/user/accountInformation}">Card Information</a></li>
+	                    <li><a th:href="@{/logout}">Logout</a></li>
+	                </ul>
+	            </li>
+	        </ul>
+		</div>
+	</nav>
+</div>
+	
+</body>
+</html>

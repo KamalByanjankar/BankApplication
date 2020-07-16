@@ -1,0 +1,41 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+
+.transfer-container{
+	border: 1px solid #404040;
+	background: #404040;
+	color: #cad2d9;
+	margin: 30px auto;
+	padding: 20px 0px 20px 12px;
+	width: 300px;
+	box-shadow: 2px 3px 7px 3px #40807E;
+	border-radius: 5px;
+}
+
+.sender-container, .receiver-container{
+	border: 1px solid #404040;
+	background: #404040;
+	color: #cad2d9;
+	margin: 30px;
+	padding: 20px 0px 20px 12px;
+	width: 300px;
+	box-shadow: 2px 3px 7px 3px #40807E;
+	border-radius: 5px;
+}
+
+.transfer-currency{
+	position: relative;
+	right: 10px;
+}
+
+.input-transfer{
+	width: 6rem;
+    padding: 3px 5px;
+	margin: 0;
+	border-radius: 5px;
+	border: 0;
+	outline: 0;
+	background: #cad2d9;
+}

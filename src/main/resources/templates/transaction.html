@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Transactions</title>
+	<link href="/css/userDetails.css" rel="stylesheet">
+</head>
+<head th:replace="header :: header"/>
+<head th:replace="header :: navbar"/>
+<body>
+<div>
+	<h2>Your transactions till date</h2>
+	<table class="center">
+		<thead>
+			<tr>
+				<th>Date / Time</th>
+				<th>Description</th>
+				<th>Status</th>
+				<th>Amount €</th>
+				<th>Total Balance €</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-th-each="transaction : ${transactionList}">
+				<td data-th-text = "${transaction.date}"></td>
+				<td data-th-text = "${transaction.description}"></td>
+				<td data-th-text = "${transaction.status}"></td>
+				<td data-th-text = "${transaction.amount}"></td>
+				<td data-th-text = "${transaction.availableBalance}"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>
