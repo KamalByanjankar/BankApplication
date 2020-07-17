@@ -13,7 +13,7 @@
 <!-- 				<li><a th:href="@{/home/accounts/deposit}">Deposit</a></li> -->
 <!-- 				<li><a th:href="@{/home/accounts/withdraw}">Withdraw</a></li> -->
 				<li><a th:href="@{/home/accounts/recipient}">Transfer</a></li>
-				<li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/userDetails}">Admin</a></li>
+				<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin/userDetails}">Admin</a></li>
 			</ul>
 			<ul class="navbar-right">
 	            <li class="dropdown">

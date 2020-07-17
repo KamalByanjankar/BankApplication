@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -12,6 +12,8 @@
 		<h2>Please Sign up</h2>
 		<div th:if="${usernameExists}"><span style="color:red">Username already exists</span></div>
 		<div th:if="${emailExists}"><span style="color:red">Email already exists</span></div>
+		<div th:if="${signupSuccess}">Account has been created</div>
+		
 		<div th:classappend="${classActiveNewAccount}? 'active'">
 			<form th:action="@{/signup}" method="post">
 			<table>

@@ -67,7 +67,7 @@ public class User implements UserDetails{
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<UserRole> userRoles = new HashSet<>();
 	
-	private boolean enabled = false;
+	private boolean enabled = true;
 	
 	@OneToOne
 	@JoinColumn(name="account_id", foreignKey=@ForeignKey(name="FK_account_id"))

@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-//import com.application.bankApp.service.UserSecurityService;
+import com.application.bankApp.service.UserSecurityService;
 
 
 @Configuration
@@ -23,8 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private static final String SALT = "salt";
 	
-//	@Autowired
-//	private UserSecurityService userSecurityService;
+	@Autowired
+	private UserSecurityService userSecurityService;
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -39,6 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/signin",
 			"/signup",
 			"/home",
+			"/admin",
+			"/user",
+			"/forgetPassword",
 	};
 	
 	@Override
@@ -72,12 +75,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-		auth.inMemoryAuthentication().withUser("jones").password(passwordEncoder().encode("jones123")).roles("USER")
-		.and()
-        .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
-        .and()
-        .withUser("james").password(passwordEncoder().encode("james123")).roles("ADMIN");
+//		auth.inMemoryAuthentication().withUser("jones").password(passwordEncoder().encode("jones123")).roles("USER")
+//		.and()
+//        .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
+//        .and()
+//        .withUser("james").password(passwordEncoder().encode("james123")).roles("ADMIN");
         
-//		auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
 	}
 }

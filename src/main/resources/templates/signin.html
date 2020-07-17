@@ -8,10 +8,12 @@
 </head>
 <body>
 <div class="container">
-	<div class="wrapper">
+	<div class="wrapper" th:classappend="${classActiveLogin}? 'in active'">
 		<h2>Please Sign in</h2>
 		<div th:if="${param.error}" class="error-message">Invalid username and password</div>
 		<div th:if="${param.logout}" class="error-message">You have been logged out</div>
+		<div th:if="${emailSent}">Email has been sent to your email address</div>
+		<div th:if="${resetEmailSent}">Password Reset Email has been sent to you email address</div>
 		
 		<form th:action="@{/signin}" method="post">
 			<table>
@@ -46,6 +48,9 @@
 	
 			<button class="btn" type="submit">Log in</button>
 			
+			<p class="link">
+				<a th:href="@{/forgetPassword}">Forget Password</a>
+			</p>
 			<p class="link">
 				Not Registered Yet? <a th:href="@{/signup}">Sign up</a>
 			</p>

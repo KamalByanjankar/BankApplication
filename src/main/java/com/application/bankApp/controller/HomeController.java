@@ -2,24 +2,20 @@ package com.application.bankApp.controller;
 
 import java.security.Principal;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
-import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.application.bankApp.model.Account;
 import com.application.bankApp.model.AccountDetails;
@@ -27,12 +23,11 @@ import com.application.bankApp.model.AccountType;
 import com.application.bankApp.model.User;
 import com.application.bankApp.repository.RoleRepository;
 import com.application.bankApp.security.UserRole;
-import com.application.bankApp.security.VerificationToken;
-import com.application.bankApp.service.UserSecurityService;
 import com.application.bankApp.service.UserService;
+import com.application.bankApp.utility.MailConstructor;
+import com.application.bankApp.utility.SecurityUtility;
 
 @Controller
-@RequestMapping("/")
 public class HomeController {
 	
 	@Autowired
@@ -45,8 +40,13 @@ public class HomeController {
 	private JavaMailSender mailSender;
 	
 	@Autowired
-	private UserSecurityService userSecurityService;
+	private MailConstructor mailConstructor;
 	
+	@Autowired
+	private SecurityUtility securityUtility;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	
 	
@@ -56,12 +56,13 @@ public class HomeController {
 	}
 	
 	@GetMapping(value="/signin")
-	public String signin() {
+	public String signin(Model model) {
+		model.addAttribute("classActiveLogin", true);
 		return "signin";
 	}
 	
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
-	public String signup(Model model, @ModelAttribute("user") User user) {
+	public String signup(@ModelAttribute("user") User user, Model model,  HttpServletRequest request) throws Exception {
 		
 		model.addAttribute("classActiveNewAccount", true);
 		
@@ -79,50 +80,23 @@ public class HomeController {
 			Set<UserRole> userRoles = new HashSet<>();
 			userRoles.add(new UserRole(user, roleRepository.findByName("ADMIN")));
 			userService.createUser(user, userRoles);
-		
-			String token = UUID.randomUUID().toString();
-			userService.createTokenForUser(user, token);
 			
-			String appUrl = "http://localhost:8080/signup?token="+token;
-			String message= "\nClick the link to verify your email address";
-			
-			SimpleMailMessage email = new SimpleMailMessage();
-			email.setTo(user.getEmail());
-			email.setSubject("Online banking-Verify email address");
-			email.setText(appUrl + message);
-			email.setFrom("kamalbyanjankar@gmail.com");
+			SimpleMailMessage email = mailConstructor.constructRegistrationEmail(request.getLocale(), user);
 			
 			mailSender.send(email);
 			model.addAttribute("emailSent", true);
+			model.addAttribute("signupSuccess", true);
 			
-			return "signup";
+			return "redirect:/signup";
 		}
 	}
 	
 	@RequestMapping(value="/signup")
-	public String confirmUserAccount(Locale locale, Model model) {
-		User user = new User();
-//		VerificationToken passToken = userService.getVerificationToken(token); 
-//		
-//		if(passToken == null) {
-//			String message = "Invalid Token";
-//			model.addAttribute("message", message);
-//			return "redirect:/badRequest";
-//		}
-//		
-//		User user = passToken.getUser();
-//		String username = user.getUsername();
-//		
-//		UserDetails userDetails = userSecurityService.loadUserByUsername(username);
-//		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-//		
-//		user.setEnabled(true);
-//		userService.save(user);
-		
+	public String confirmUserAccount(Model model) {
+		User user = new User();		
 		model.addAttribute("user", user);
 		
-		return "home";
+		return "signup";
 	}
 	
 	
@@ -139,5 +113,39 @@ public class HomeController {
 		model.addAttribute("account", account);
 		model.addAttribute("accountDetails", accountDetails);
 		return "home";
+	}
+	
+	@RequestMapping(value="/forgetPassword")
+	public String forgetPassword(Model model, @ModelAttribute("email") String userEmail) {
+		User user = userService.findByEmail(userEmail);
+		if(user == null) {
+			model.addAttribute("emailNotExists", true);
+			return "forgetPassword";
+		}
+		
+		
+		
+		String password = securityUtility.randomPassword();
+		String encryptedPassword = bCryptPasswordEncoder.encode(password);
+		user.setPassword(encryptedPassword);
+		
+		userService.save(user);
+		
+		System.out.println(password);
+		
+		String message = "Your temporary password is: " + password;
+		
+		SimpleMailMessage email = new SimpleMailMessage();
+		
+		email.setTo(user.getEmail());
+		email.setSubject("Reset Password");
+		email.setText(message);
+		email.setFrom("yourEmail@domain.com");
+		
+		mailSender.send(email);
+		
+		model.addAttribute("resetEmailSent", true);
+		
+		return "redirect:/signin";
 	}
 }
