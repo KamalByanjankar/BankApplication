@@ -20,7 +20,9 @@ import com.application.bankApp.model.UserProfile;
 import com.application.bankApp.repository.RoleRepository;
 import com.application.bankApp.repository.UserProfileRepository;
 import com.application.bankApp.repository.UserRepository;
+import com.application.bankApp.repository.VerificationTokenRepository;
 import com.application.bankApp.security.UserRole;
+import com.application.bankApp.security.VerificationToken;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -39,6 +41,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private VerificationTokenRepository verificationTokenRepository;
 	
 	
 	
@@ -151,6 +156,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User findByEmail(String userEmail) {
 		return userRepository.findByEmail(userEmail);
+	}
+
+	@Override
+	public void createResetPasswordToken(String token, User user) {
+		VerificationToken myToken = new VerificationToken(token, user);
+		verificationTokenRepository.save(myToken);
 	}
 
 }

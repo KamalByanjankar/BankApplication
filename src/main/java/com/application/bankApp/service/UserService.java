@@ -37,4 +37,6 @@ public interface UserService {
 
 	User findByEmail(String userEmail);
 
+	void createResetPasswordToken(String token, User user);
+
 }

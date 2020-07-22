@@ -3,12 +3,17 @@ package com.application.bankApp.controller;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +28,7 @@ import com.application.bankApp.model.AccountType;
 import com.application.bankApp.model.User;
 import com.application.bankApp.repository.RoleRepository;
 import com.application.bankApp.security.UserRole;
+import com.application.bankApp.service.UserSecurityService;
 import com.application.bankApp.service.UserService;
 import com.application.bankApp.utility.MailConstructor;
 import com.application.bankApp.utility.SecurityUtility;
@@ -47,6 +53,10 @@ public class HomeController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private UserSecurityService userSecurityService;
+	
 	
 	
 	
@@ -131,20 +141,59 @@ public class HomeController {
 		
 		userService.save(user);
 		
-		System.out.println(password);
+		String token = UUID.randomUUID().toString();
+		userService.createResetPasswordToken(token, user);
 		
-		String message = "Your temporary password is: " + password;
+		String appUrl = "http://localhost:8080/changePassword?token="+token;
+		String message = "\nYour temporary password is: " + password;
 		
 		SimpleMailMessage email = new SimpleMailMessage();
 		
 		email.setTo(user.getEmail());
 		email.setSubject("Reset Password");
-		email.setText(message);
+		email.setText(appUrl + message);
 		email.setFrom("yourEmail@domain.com");
 		
 		mailSender.send(email);
 		
 		model.addAttribute("resetEmailSent", true);
+		
+		return "redirect:/signin";
+	}
+	
+	@RequestMapping(value="/changePassword")
+	public String changePassword(Model model, Principal principal, 
+			@ModelAttribute("newPassword") String newPassword, 
+			@ModelAttribute("user") User user) throws Exception {
+	
+		User currentUser = userService.findByUsername(principal.getName());
+		
+		if(currentUser == null) {
+			throw new Exception("Username not found");
+		}
+		
+		if(newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")) {
+			currentUser.setPassword(bCryptPasswordEncoder.encode(newPassword));
+			
+		}
+		else {
+			model.addAttribute("incorrectPassword", true);
+		}
+		
+		UserDetails userDetails = userSecurityService.loadUserByUsername(currentUser.getUsername());
+		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		currentUser.setFirstName(user.getFirstName());
+		currentUser.setLastName(user.getLastName());
+		currentUser.setEmail(user.getEmail());
+		currentUser.setSocialSecurityNumber(user.getSocialSecurityNumber());
+		currentUser.setAccountType(user.getAccountType());
+		currentUser.setUsername(user.getUsername());
+		
+		
+		model.addAttribute("updateSuccess", true);
+		userService.save(currentUser);
 		
 		return "redirect:/signin";
 	}

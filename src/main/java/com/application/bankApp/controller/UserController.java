@@ -43,10 +43,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/userInformation/save", method=RequestMethod.POST)
-	public String userInformation(@ModelAttribute("userProfile") UserProfile userProfile, Principal principal) {
+	public String userInformation(@ModelAttribute("userProfile") UserProfile userProfile, Principal principal, Model model) {
 		User user = userService.findByUsername(principal.getName());
 		userProfile.setUser(user);
+		
+		model.addAttribute("userProfile", userProfile);
+		
 		userService.saveUserInformation(userProfile);
+		
 		
 		return "redirect:/user/userInformation";
 	}

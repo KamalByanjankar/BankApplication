@@ -3,7 +3,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Personal Information</title>
-	<link href="/css/transfer.css" rel="stylesheet">
 	<link href="/css/home.css" rel="stylesheet">
 	<link href="/css/userInformation.css" rel="stylesheet">
 </head>
@@ -13,126 +12,67 @@
 <div class="information-wrapper">
 	<div class="basic-container">
 	<h4>Basic Information</h4>
-		<table>
-			<tbody>
-				<tr>
-					<td class="title">
-						<label for="name">Name:</label>
-					</td>
-					<td class="input-field">
-						<span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="title">
-						<label for="email">Email:</label>
-					</td>
-					<td class="input-field">
-						<span th:text="${user.email}"></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="title">
-						<label for="ssn">Social Security Number:</label>
-					</td>
-					<td class="input-field">
-						<span th:text="${user.socialSecurityNumber}"></span>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="basicInfo-wrapper">
+			<div class="form-container">
+				<label for="name">Name: </label>
+				<span class="input-field"><span id="name" th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></span>
+			</div>
+			<div class="form-container">
+				<label for="email">Email: </label>
+				<span class="input-field" id="email" th:text="${user.email}"></span>
+			</div>
+			<div class="form-container">
+				<label for="ssn">Social Security Number: </label>
+				<span class="input-field" id="ssn" th:text="${user.socialSecurityNumber}"></span>
+			</div>
+			<div class="form-container">
+				<label for="address">Address: </label>
+				<span class="input-field" id="address" th:text="${userProfile.address}"></span>
+			</div>
+		</div>
 	</div>
+	
 	<div class="additional-container">
 		<h4>Additional Information</h4>
 		<form th:action="@{/user/userInformation/save}" method="post">
-		<table>
-			<tbody>
-				<tr>
-					<td>
-						<input type="hidden" name="id" th:value="${userProfile.id}">
-					</td>
-				</tr>
-				<tr>
-					<td class="title">
-						<label for="address">Address</label>
-					</td>
-					<td class="input-field">
-						<input class="additional-input" type="text" th:value="${userProfile.address}" name="address" id="address" placeholder="Address" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td class="title">
-						<label for="city">City</label>
-					</td>
-					<td class="input-field">
-						<input class="additional-input" type="text" th:value="${userProfile.city}" name="city" id="city" placeholder="City" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td class="title">
-						<label for="state">State</label>
-					</td>
-					<td class="input-field">
-						<input class="additional-input" type="text" th:value="${userProfile.state}" name="state" id="state" placeholder="State" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td class="title">
-						<label for="zipcode">ZipCode</label>
-					</td>
-					<td class="input-field">
-						<input class="additional-input" type="text" th:value="${userProfile.zipCode}" name="zipCode" id="zipCode" placeholder="Zip code" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td class="title">
-						<label for="gender">Gender</label>
-					</td>
-					<td class="input-field">
-						<input class="additional-input" type="text" th:value="${userProfile.gender}" name="gender" id="gender" placeholder="Male, Female, Others" required="required">
-					</td>
-				</tr>
-				<tr>
-					<td class="title">
-						<label for="dob">Date of Birth</label>
-					</td>
-					<td class="input-field">
-						<input class="additional-input" type="text" th:value="${userProfile.dob}" name="dob" id="dob" placeholder="yyyy-MM-dd" required="required">
-					</td>
-				</tr>
-			</tbody>
-		</table>
-			<button class="btn" type="submit">Save</button>
+			<input type="hidden" name="id" th:value="${userProfile.id}" />
+			<div>
+				<div class="form-container">
+					<label for="address">Address</label>
+					<input class="input-field" type="text" id="address" name="address" th:value="${userProfile.address}" />	
+				</div>
+				<div class="form-container">
+					<label for="city">City</label>
+					<input class="input-field" type="text" id="city" name="city" th:value="${userProfile.city}" />
+				</div>
+				<div class="form-container">
+					<label for="state">State</label>
+					<input class="input-field" type="text" id="state" name="state" th:value="${userProfile.state}" />
+				</div>
+				<div class="form-container">
+					<label for="zipCode">Zip Code</label>
+					<input class="input-field" type="text" id="zipCode" name="zipCode" th:value="${userProfile.zipCode}" />
+				</div>
+				<div class="form-container">
+					<label for="gender">Gender</label>
+					<input class="input-field" type="text" id="gender" name="gender" th:value="${userProfile.gender}" />
+				</div>
+				<div class="form-container">
+					<label for="dob">Date of Birth</label>
+					<input class="input-field" type="text" id="dob" name="dob" th:value="${userProfile.dob}" />
+				</div>
+				<div class="form-container">
+					<label for="newPassword">Password</label>
+					<input class="input-field" type="password" id="newPassword" name="newPassword" />
+				</div>
+				<div class="form-container">
+					<label for="confirmPassword">Confirm Password</label>
+					<input class="input-field" type="password" id="confirmPassword"/>
+				</div>
+			</div>
+			<button class="btn" type="submit">Update</button>
 		</form>
 	</div>
-</div>
-		
-<div>
-	<h4 class="header-align">Additional Information</h4>
-	<table class="center">
-		<thead>
-			<tr>
-				<th class="additional">Address</th>
-				<th class="additional">City</th>
-				<th class="additional">State</th>
-				<th class="additional">ZipCode</th>
-				<th class="additional">Gender</th>
-				<th class="additional">Date of Birth</th>
-				<th class="additional">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="userProfile : ${userProfileList}">
-				<td class="additional" th:text="${userProfile.address}"></td>
-				<td class="additional" th:text="${userProfile.city}"></td>
-				<td class="additional" th:text="${userProfile.state}"></td>
-				<td class="additional" th:text="${userProfile.zipCode}"></td>
-				<td class="additional" th:text="${userProfile.gender}"></td>
-				<td class="additional" th:text="${userProfile.dob}"></td>
-				<td class="additional"><a th:href="@{/user/userInformation/edit?userAddress=}+${userProfile.address}">Edit</a></td>
-			</tr>
-		</tbody>
-	</table>
 </div>
 </body>
 </html>

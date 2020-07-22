@@ -2,7 +2,6 @@ package com.application.bankApp.model;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -61,8 +60,11 @@ public class User implements UserDetails{
 	@Column(nullable=false)
 	private String password;
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<UserProfile> userProfile;
+	@OneToOne
+	private UserProfile userProfile;
+	
+//	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	private List<UserProfile> userProfile;
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<UserRole> userRoles = new HashSet<>();
@@ -83,7 +85,7 @@ public class User implements UserDetails{
 	
 
 	public User(String firstName, String lastName, String email, String socialSecurityNumber, AccountType accountType,
-			String username, String password, List<UserProfile> userProfile, Set<UserRole> userRoles, boolean enabled,
+			String username, String password, UserProfile userProfile, Set<UserRole> userRoles, boolean enabled,
 			Account account, Recipient recipient) {
 		super();
 		this.firstName = firstName;
@@ -112,11 +114,11 @@ public class User implements UserDetails{
 	}
 
 
-	public List<UserProfile> getUserProfile() {
+	public UserProfile getUserProfile() {
 		return userProfile;
 	}
 
-	public void setUserProfile(List<UserProfile> userProfile) {
+	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
 	}
 

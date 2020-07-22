@@ -32,12 +32,33 @@ h4{
 	width: 32%;
     white-space: nowrap;
     color: #cecece;
-    text-align: right;
+    text-align: center;
     padding-right: 1em;
+    margin: 10px 0;
 }
 
 .input-field{
-	padding: 8px;
+	padding: 2px 5px;
+	outline: none;
+	border-radius: 5px;
+	border: none;
+	width: 55%;
+}
+
+.form-container{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 5px 3rem;
+	align-items: center;
+}
+
+.input-label{
+	
+}
+
+.basicInfo-wrapper{
+	margin: 5px;
 }
 
 .input{

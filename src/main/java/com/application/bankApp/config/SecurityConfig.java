@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/admin",
 			"/user",
 			"/forgetPassword",
+			"/changePassword",
 	};
 	
 	@Override
@@ -75,12 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-//		auth.inMemoryAuthentication().withUser("jones").password(passwordEncoder().encode("jones123")).roles("USER")
-//		.and()
-//        .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
-//        .and()
-//        .withUser("james").password(passwordEncoder().encode("james123")).roles("ADMIN");
-        
 		auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
 	}
 }

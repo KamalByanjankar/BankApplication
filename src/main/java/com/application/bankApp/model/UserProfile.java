@@ -26,12 +26,8 @@ public class UserProfile {
 	private String state;
 	private Gender gender;
 	
-	@NotNull
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dob;
-	
-//	@OneToOne(mappedBy="userProfile", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -41,7 +37,7 @@ public class UserProfile {
 		super();
 	}
 
-	public UserProfile(String address, String city, String zipCode, String state, Gender gender, @NotNull LocalDate dob) {
+	public UserProfile(String address, String city, String zipCode, String state, Gender gender, LocalDate dob) {
 		super();
 		this.address = address;
 		this.city = city;
