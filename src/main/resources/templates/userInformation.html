@@ -64,27 +64,32 @@
 			<div>
 				<div class="form-container">
 					<label for="address">Address</label>
-					<input class="input-field" type="text" id="address" name="address" th:value="${userProfile.address}" />	
+					<input class="input-field" type="text" id="address" name="address" th:value="${userProfile.address}" required="required" />	
 				</div>
 				<div class="form-container">
 					<label for="city">City</label>
-					<input class="input-field" type="text" id="city" name="city" th:value="${userProfile.city}" />
+					<input class="input-field" type="text" id="city" name="city" th:value="${userProfile.city}" required="required" />
 				</div>
 				<div class="form-container">
 					<label for="state">State</label>
-					<input class="input-field" type="text" id="state" name="state" th:value="${userProfile.state}" />
+					<input class="input-field" type="text" id="state" name="state" th:value="${userProfile.state}" required="required" />
 				</div>
 				<div class="form-container">
 					<label for="zipCode">Zip Code</label>
-					<input class="input-field" type="text" id="zipCode" name="zipCode" th:value="${userProfile.zipCode}" />
+					<input class="input-field" type="text" id="zipCode" name="zipCode" th:value="${userProfile.zipCode}" required="required" />
 				</div>
 				<div class="form-container">
 					<label for="gender">Gender</label>
-					<input class="input-field" type="text" id="gender" name="gender" th:value="${userProfile.gender}" />
+					<select class="input-field" th:value="${userProfile.gender}" name="gender" id="gender" required="required" >
+						<option selected="selected" disabled="disabled">Enter your gender</option>
+						<option>Male</option>	
+						<option>Female</option>
+						<option>Others</option>
+					</select>
 				</div>
 				<div class="form-container">
 					<label for="dob">Date of Birth</label>
-					<input class="input-field" type="text" id="dob" name="dob" th:value="${userProfile.dob}" />
+					<input class="input-field" type="text" id="dob" name="dob" th:value="${userProfile.dob}" required="required" />
 				</div>
 				<div class="form-container">
 					<label for="newPassword">Password</label>
