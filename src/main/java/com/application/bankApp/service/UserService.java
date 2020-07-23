@@ -1,6 +1,5 @@
 package com.application.bankApp.service;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +21,6 @@ public interface UserService {
 	User findByUsername(String username);
 
 	UserProfile saveUserInformation(UserProfile userProfile);
-
-	List<UserProfile> findAllUserProfileList(Principal principal);
 
 	UserProfile findByAddress(String userAddress);
 

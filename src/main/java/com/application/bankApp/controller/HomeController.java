@@ -10,10 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +24,6 @@ import com.application.bankApp.model.AccountType;
 import com.application.bankApp.model.User;
 import com.application.bankApp.repository.RoleRepository;
 import com.application.bankApp.security.UserRole;
-import com.application.bankApp.service.UserSecurityService;
 import com.application.bankApp.service.UserService;
 import com.application.bankApp.utility.MailConstructor;
 import com.application.bankApp.utility.SecurityUtility;
@@ -53,12 +48,6 @@ public class HomeController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Autowired
-	private UserSecurityService userSecurityService;
-	
-	
-	
 	
 	@GetMapping(value="/")
 	public String index() {
@@ -106,7 +95,7 @@ public class HomeController {
 		User user = new User();		
 		model.addAttribute("user", user);
 		
-		return "signup";
+		return "signin";
 	}
 	
 	
@@ -144,7 +133,7 @@ public class HomeController {
 		String token = UUID.randomUUID().toString();
 		userService.createResetPasswordToken(token, user);
 		
-		String appUrl = "http://localhost:8080/changePassword?token="+token;
+		String appUrl = "http://localhost:8080/signin?token="+token;
 		String message = "\nYour temporary password is: " + password;
 		
 		SimpleMailMessage email = new SimpleMailMessage();
@@ -161,40 +150,40 @@ public class HomeController {
 		return "redirect:/signin";
 	}
 	
-	@RequestMapping(value="/changePassword")
-	public String changePassword(Model model, Principal principal, 
-			@ModelAttribute("newPassword") String newPassword, 
-			@ModelAttribute("user") User user) throws Exception {
-	
-		User currentUser = userService.findByUsername(principal.getName());
-		
-		if(currentUser == null) {
-			throw new Exception("Username not found");
-		}
-		
-		if(newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")) {
-			currentUser.setPassword(bCryptPasswordEncoder.encode(newPassword));
-			
-		}
-		else {
-			model.addAttribute("incorrectPassword", true);
-		}
-		
-		UserDetails userDetails = userSecurityService.loadUserByUsername(currentUser.getUsername());
-		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		currentUser.setFirstName(user.getFirstName());
-		currentUser.setLastName(user.getLastName());
-		currentUser.setEmail(user.getEmail());
-		currentUser.setSocialSecurityNumber(user.getSocialSecurityNumber());
-		currentUser.setAccountType(user.getAccountType());
-		currentUser.setUsername(user.getUsername());
-		
-		
-		model.addAttribute("updateSuccess", true);
-		userService.save(currentUser);
-		
-		return "redirect:/signin";
-	}
+//	@RequestMapping(value="/changePassword")
+//	public String changePassword(Model model, Principal principal, 
+//			@ModelAttribute("newPassword") String newPassword, 
+//			@ModelAttribute("user") User user) throws Exception {
+//	
+//		User currentUser = userService.findByUsername(principal.getName());
+//		
+//		if(currentUser == null) {
+//			throw new Exception("Username not found");
+//		}
+//		
+//		if(newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")) {
+//			currentUser.setPassword(bCryptPasswordEncoder.encode(newPassword));
+//			
+//		}
+//		else {
+//			model.addAttribute("incorrectPassword", true);
+//		}
+//		
+//		UserDetails userDetails = userSecurityService.loadUserByUsername(currentUser.getUsername());
+//		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+//		SecurityContextHolder.getContext().setAuthentication(authentication);
+//		
+//		currentUser.setFirstName(user.getFirstName());
+//		currentUser.setLastName(user.getLastName());
+//		currentUser.setEmail(user.getEmail());
+//		currentUser.setSocialSecurityNumber(user.getSocialSecurityNumber());
+//		currentUser.setAccountType(user.getAccountType());
+//		currentUser.setUsername(user.getUsername());
+//		
+//		
+//		model.addAttribute("updateSuccess", true);
+//		userService.save(currentUser);
+//		
+//		return "redirect:/signin";
+//	}
 }

@@ -25,15 +25,40 @@
 				<label for="ssn">Social Security Number: </label>
 				<span class="input-field" id="ssn" th:text="${user.socialSecurityNumber}"></span>
 			</div>
+			<br/>
+			<hr/>
+			<br/>
+			<h4>Additional Information</h4>
 			<div class="form-container">
-				<label for="address">Address: </label>
-				<span class="input-field" id="address" th:text="${userProfile.address}"></span>
+				<label for="address">Address</label>
+				<span class="input-field" id="address" th:text="${user.userProfile.address}"></span>	
+			</div>
+			<div class="form-container">
+				<label for="city">City</label>
+				<span class="input-field" id="city" th:text="${user.userProfile.city}"></span>
+			</div>
+			<div class="form-container">
+				<label for="state">State</label>
+				<span class="input-field" id="state" th:text="${user.userProfile.state}"></span>
+			</div>
+			<div class="form-container">
+				<label for="zipCode">Zip Code</label>
+				<span class="input-field" id="zipCode" th:text="${user.userProfile.zipCode}"></span>
+			</div>
+			<div class="form-container">
+				<label for="gender">Gender</label>
+				<span class="input-field" id="gender" th:text="${user.userProfile.gender}"></span>
+			</div>
+			<div class="form-container">
+				<label for="dob">Date of Birth</label>
+				<span class="input-field" id="dob" th:text="${user.userProfile.dob}"></span>
 			</div>
 		</div>
 	</div>
+	<br/>
 	
 	<div class="additional-container">
-		<h4>Additional Information</h4>
+		<h4>Edit/Save Additional Information</h4>
 		<form th:action="@{/user/userInformation/save}" method="post">
 			<input type="hidden" name="id" th:value="${userProfile.id}" />
 			<div>
@@ -70,7 +95,8 @@
 					<input class="input-field" type="password" id="confirmPassword"/>
 				</div>
 			</div>
-			<button class="btn" type="submit">Update</button>
+			<button class="save-btn" type="submit">Save</button>
+			<a class="edit-btn" th:href="@{/user/userInformation/edit?address=}+${user.userProfile.address}">Edit</a>
 		</form>
 	</div>
 </div>

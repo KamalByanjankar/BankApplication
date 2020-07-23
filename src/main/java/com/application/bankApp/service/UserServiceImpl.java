@@ -1,11 +1,8 @@
 package com.application.bankApp.service;
 
-import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -99,13 +96,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserProfile saveUserInformation(UserProfile userProfile) {
 		return userProfileRepository.save(userProfile);
-	}
-
-	@Override
-	public List<UserProfile> findAllUserProfileList(Principal principal) {
-		String username = principal.getName();
-		List<UserProfile> userProfileList = userProfileRepository.findAll().stream().filter(userProfile -> username.equals(userProfile.getUser().getUsername())).collect(Collectors.toList());
-		return userProfileList;
 	}
 
 	@Override

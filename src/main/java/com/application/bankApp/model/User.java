@@ -60,11 +60,8 @@ public class User implements UserDetails{
 	@Column(nullable=false)
 	private String password;
 	
-	@OneToOne
+	@OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private UserProfile userProfile;
-	
-//	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-//	private List<UserProfile> userProfile;
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<UserRole> userRoles = new HashSet<>();
@@ -81,8 +78,6 @@ public class User implements UserDetails{
 	public User() {
 		
 	}
-
-	
 
 	public User(String firstName, String lastName, String email, String socialSecurityNumber, AccountType accountType,
 			String username, String password, UserProfile userProfile, Set<UserRole> userRoles, boolean enabled,
