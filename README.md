@@ -1,4 +1,4 @@
-# BankApplication
+
 Simple Web Application using Spring boot, hibernate, thymeleaf and postgreSQL Database
 
 In this project, Java Spring boot has been used as a backend which consists of inbuilt tomcat server. For the front end thymeleaf has been used.
@@ -12,3 +12,4 @@ The ADMIN Role can do all the above mentioned activities and also the admin can 
  used. 
  
  For this project, Java Spring boot, thymeleaf, hibernate, spring security, PostgreSQL Database, CSS and javascript is used.
+
