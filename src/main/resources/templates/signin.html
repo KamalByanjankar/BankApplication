@@ -13,7 +13,6 @@
 		<div th:if="${param.error}" class="error-message">Invalid username and password</div>
 		<div th:if="${param.logout}" class="error-message">You have been logged out</div>
 		<div th:if="${emailSent}">Email has been sent to your email address</div>
-		<div th:if="${resetEmailSent}">Password Reset Email has been sent to you email address</div>
 		
 		<form th:action="@{/signin}" method="post">
 			<table>

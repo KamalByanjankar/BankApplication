@@ -59,6 +59,8 @@
 	
 	<div class="additional-container">
 		<h4>Edit/Save Additional Information</h4>
+		
+		<div style="color:green; text-align:center; margin:20px 0px" th:if="${editInfo}">Click edit to change information</div>
 		<form th:action="@{/user/userInformation/save}" method="post">
 			<input type="hidden" name="id" th:value="${userProfile.id}" />
 			<div>
@@ -93,7 +95,7 @@
 				</div>
 				<div class="form-container">
 					<label for="newPassword">Password</label>
-					<input class="input-field" type="password" id="newPassword" name="newPassword" />
+					<input class="input-field" type="password" id="newPassword" name="newPassword" placeholder="Enter new Password to change"/>
 				</div>
 				<div class="form-container">
 					<label for="confirmPassword">Confirm Password</label>
@@ -101,6 +103,7 @@
 				</div>
 			</div>
 			<button class="save-btn" type="submit">Save</button>
+			
 			<a class="edit-btn" th:href="@{/user/userInformation/edit?address=}+${user.userProfile.address}">Edit</a>
 		</form>
 	</div>

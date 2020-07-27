@@ -5,11 +5,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +33,7 @@ import com.application.bankApp.utility.SecurityUtility;
 
 @Controller
 public class HomeController {
+	
 	
 	@Autowired
 	private UserService userService;
@@ -133,21 +137,44 @@ public class HomeController {
 		String token = UUID.randomUUID().toString();
 		userService.createResetPasswordToken(token, user);
 		
-		String appUrl = "http://localhost:8080/signin?token="+token;
-		String message = "\nYour temporary password is: " + password;
+		String appUrl = "\nhttp://localhost:8080/user/userInformation?token="+token;
+		String content = "<html><a href='"+appUrl+"'>"+appUrl+"</a></html>";
+		String message1 = "\nYour temporary password is: " + password;
 		
-		SimpleMailMessage email = new SimpleMailMessage();
+//		SimpleMailMessage email = new SimpleMailMessage();
+//		
+//		email.setTo(user.getEmail());
+//		email.setSubject("Reset Password");
+//		email.setText(content);
+//		email.setFrom("yourEmail@domain.com");
+//        
+//        // sends the e-mail
+//		mailSender.send(email);
 		
-		email.setTo(user.getEmail());
-		email.setSubject("Reset Password");
-		email.setText(appUrl + message);
-		email.setFrom("yourEmail@domain.com");
-		
-		mailSender.send(email);
-		
+		MimeMessage message = mailSender.createMimeMessage(); 
+        MimeMessageHelper helper;
+
+        try {
+            helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            helper.setSubject("Hello");
+            helper.setText("message1", content);
+            helper.setFrom("yourEmail@gmail.com");
+            helper.setTo(user.getEmail());
+        } catch (MessagingException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } 
+
+        try {  
+            mailSender.send(message);
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }
+
 		model.addAttribute("resetEmailSent", true);
 		
-		return "redirect:/signin";
+		return "forgetPassword";
 	}
 	
 //	@RequestMapping(value="/changePassword")

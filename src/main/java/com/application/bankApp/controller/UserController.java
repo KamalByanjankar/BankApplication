@@ -41,10 +41,11 @@ public class UserController {
 		 
 		model.addAttribute("user", user);
 		model.addAttribute("userProfile", userProfile);
+		model.addAttribute("editInfo", true);
 		return "userInformation";
 	}
 	
-	@RequestMapping(value="/userInformation/save", method=RequestMethod.POST)
+	@RequestMapping(value="/userInformation/save")
 	public String userInformation(@ModelAttribute("userProfile") UserProfile userProfile, 
 			Principal principal, Model model, @ModelAttribute("newPassword") String newPassword) {
 		
@@ -58,7 +59,6 @@ public class UserController {
 		userProfile.setUser(user);
 		
 		model.addAttribute("userProfile", userProfile);
-		
 		userService.save(user);
 		userService.saveUserInformation(userProfile);
 		
