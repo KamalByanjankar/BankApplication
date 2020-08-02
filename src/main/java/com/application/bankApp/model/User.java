@@ -55,6 +55,7 @@ public class User implements UserDetails{
 	private AccountType accountType;
 	
 	@Column(name="username", nullable=false, unique=true)
+//	@Length(min=6, max=20)
 	private String username;
 	
 	@Column(nullable=false)

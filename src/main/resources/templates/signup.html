@@ -12,7 +12,7 @@
 		<h2>Please Sign up</h2>
 		<div th:if="${usernameExists}"><span style="color:red">Username already exists</span></div>
 		<div th:if="${emailExists}"><span style="color:red">Email already exists</span></div>
-		<div th:if="${signupSuccess}">Account has been created</div>
+		<div th:if="${signupSuccess}">Please check your email to verify your account.</div>
 		
 		<div th:classappend="${classActiveNewAccount}? 'active'">
 			<form th:action="@{/signup}" method="post">
@@ -23,7 +23,7 @@
 							<label for="firstName">First Name</label>
 						</td>
 						<td class="input-field">
-							<input class="input" type="text" th:value="${firstName}" name="firstName" id="firstName" required="required">
+							<input class="input" type="text" th:value="${firstName}" name="firstName" id="firstName" required="required" autofocus>
 						</td>
 					</tr>
 					<tr>
@@ -75,7 +75,16 @@
 							<label for="password">Password</label>
 						</td>
 						<td class="input-field">
-							<input class="input" type="password" th:value="${password}" name="password" id="password" required="required">
+							<input class="input" type="password" name="password" id="password" required="required">
+							<span><button id="toggleBtn" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">
+							<label for="confirmPassword">Confirm Password</label>
+						</td>
+						<td class="input-field">
+							<input class="input" type="password" id="confirmPassword" required="required">
 							<span><button id="toggleBtn" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
 						</td>
 					</tr>
@@ -90,6 +99,9 @@
 		</div>
 	</div>
 </div>	
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/matchPassword.js"></script>
 </body>
 </html>

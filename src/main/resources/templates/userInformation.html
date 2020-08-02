@@ -82,11 +82,9 @@
 				</div>
 				<div class="form-container">
 					<label for="gender">Gender</label>
-					<select class="input-field" th:value="${userProfile.gender}" name="gender" id="gender" required="required" >
-						<option selected="selected" disabled="disabled">Enter your gender</option>
-						<option>Male</option>	
-						<option>Female</option>
-						<option>Others</option>
+					<select name="gender" class="input-field">
+					    <option th:each="genders : ${T(com.application.bankApp.model.Gender).values()}" 
+					        th:value="${genders}" th:text="${genders}"></option>
 					</select>
 				</div>
 				<div class="form-container">

@@ -10,7 +10,6 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -81,16 +80,19 @@ public class HomeController {
 		
 		else {
 			Set<UserRole> userRoles = new HashSet<>();
-			userRoles.add(new UserRole(user, roleRepository.findByName("ADMIN")));
+			userRoles.add(new UserRole(user, roleRepository.findByName("USER")));
 			userService.createUser(user, userRoles);
 			
-			SimpleMailMessage email = mailConstructor.constructRegistrationEmail(request.getLocale(), user);
+			String token = UUID.randomUUID().toString();
+			userService.createResetPasswordToken(token, user);
+			
+			MimeMessage email = mailConstructor.constructRegistrationEmail(request.getLocale(), user, token);
 			
 			mailSender.send(email);
 			model.addAttribute("emailSent", true);
 			model.addAttribute("signupSuccess", true);
 			
-			return "redirect:/signup";
+			return "signup";
 		}
 	}
 	
@@ -99,7 +101,7 @@ public class HomeController {
 		User user = new User();		
 		model.addAttribute("user", user);
 		
-		return "signin";
+		return "signup";
 	}
 	
 	
@@ -137,19 +139,16 @@ public class HomeController {
 		String token = UUID.randomUUID().toString();
 		userService.createResetPasswordToken(token, user);
 		
-		String appUrl = "\nhttp://localhost:8080/user/userInformation?token="+token;
-		String content = "<html><a href='"+appUrl+"'>"+appUrl+"</a></html>";
-		String message1 = "\nYour temporary password is: " + password;
+		String appUrl = "http://localhost:8080/user/userInformation?token="+token;
+		String text1 = "Click the link to change your password:";
+		String text = "Your temporary password is: " + password;
 		
-//		SimpleMailMessage email = new SimpleMailMessage();
-//		
-//		email.setTo(user.getEmail());
-//		email.setSubject("Reset Password");
-//		email.setText(content);
-//		email.setFrom("yourEmail@domain.com");
-//        
-//        // sends the e-mail
-//		mailSender.send(email);
+		String content = "<html>"+text1+"</html>" +
+						"<html><a href='"+appUrl+"'>"+appUrl+"</a></html>" + 
+						"<htm><br/></html>" +
+						"<htm><br/></html>" +
+						"<html>"+text+"</html>";
+		
 		
 		MimeMessage message = mailSender.createMimeMessage(); 
         MimeMessageHelper helper;
@@ -157,8 +156,8 @@ public class HomeController {
         try {
             helper = new MimeMessageHelper(message, true, "UTF-8");
 
-            helper.setSubject("Hello");
-            helper.setText("message1", content);
+            helper.setSubject("Reset Password");
+            helper.setText(content, true);
             helper.setFrom("yourEmail@gmail.com");
             helper.setTo(user.getEmail());
         } catch (MessagingException e1) {
