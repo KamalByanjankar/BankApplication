@@ -31,7 +31,7 @@
 							<label for="lastName">Last Name</label>
 						</td>
 						<td class="input-field">
-							<input class="input" type="text" th:value="${lastName}" name="lastName" id="lastName" required="required">
+							<input class="input" type="text" th:value="${lastName}" name="lastName" id="lastName" required="required" autofocus>
 						</td>
 					</tr>
 					<tr>
@@ -39,7 +39,7 @@
 							<label for="email">Email</label>
 						</td>
 						<td class="input-field">
-							<input class="input" type="text" th:value="${email}" name="email" id="email" required="required">
+							<input class="input" type="text" th:value="${email}" name="email" id="email" required="required" autofocus>
 						</td>
 					</tr>
 					<tr>
@@ -47,7 +47,7 @@
 							<label for="socialSecurityNumber">Social Security Number</label>
 						</td>
 						<td class="input-field">
-							<input class="input" type="text" th:value="${socialSecurityNumber}" name="socialSecurityNumber" id="socialSecurityNumber" required="required">
+							<input class="input" type="text" th:value="${socialSecurityNumber}" name="socialSecurityNumber" id="socialSecurityNumber" required="required" autofocus>
 						</td>
 					</tr>
 					<tr>
@@ -55,7 +55,7 @@
 							<label for="accountType">Account Type</label>
 						</td>
 						<td class="input-field">
-							<select class="input" th:value="${accountType}" name="accountType" id="accountType" required="required">
+							<select class="input" th:value="${accountType}" name="accountType" id="accountType" required="required" autofocus>
 								<option selected="selected" disabled="disabled">Select an account type to open</option>
 								<option>Checking</option>	
 								<option>Saving</option>
@@ -67,7 +67,7 @@
 							<label for="username">Username</label>
 						</td>
 						<td class="input-field">
-							<input class="input" type="text" th:value="${username}" name="username" id="username" required="required">
+							<input class="input" type="text" th:value="${username}" name="username" id="username" required="required" autofocus>
 						</td>
 					</tr>
 					<tr>
@@ -75,8 +75,8 @@
 							<label for="password">Password</label>
 						</td>
 						<td class="input-field">
-							<input class="input" type="password" name="password" id="password" required="required">
-							<span><button id="toggleBtn" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
+							<input class="input" type="password" name="password" id="password" required="required" autofocus>
+							<span><button id="toggleShowPassword" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
 						</td>
 					</tr>
 					<tr>
@@ -84,8 +84,8 @@
 							<label for="confirmPassword">Confirm Password</label>
 						</td>
 						<td class="input-field">
-							<input class="input" type="password" id="confirmPassword" required="required">
-							<span><button id="toggleBtn" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
+							<input class="input" type="password" id="confirmPassword" required="required" autofocus>
+							<span><button id="toggleShowConfirmPassword" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
 						</td>
 					</tr>
 				</tbody>
@@ -101,7 +101,7 @@
 </div>	
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="/js/showHidePassword.js"></script>
 <script src="/js/matchPassword.js"></script>
 </body>
 </html>
