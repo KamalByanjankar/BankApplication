@@ -42,6 +42,7 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("userProfile", userProfile);
 		model.addAttribute("editInfo", true);
+		
 		return "userInformation";
 	}
 	
@@ -61,7 +62,6 @@ public class UserController {
 		model.addAttribute("userProfile", userProfile);
 		userService.save(user);
 		userService.saveUserInformation(userProfile);
-		
 		
 		return "redirect:/user/userInformation";
 	}

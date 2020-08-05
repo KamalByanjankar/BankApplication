@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.application.bankApp.model.Account;
 import com.application.bankApp.model.AccountDetails;
 import com.application.bankApp.model.AccountType;
@@ -54,6 +55,8 @@ public class HomeController {
 	
 	
 	
+	
+	
 	@GetMapping(value="/")
 	public String index() {
 		return "redirect:/signin";
@@ -80,7 +83,7 @@ public class HomeController {
 		
 		else {
 			Set<UserRole> userRoles = new HashSet<>();
-			userRoles.add(new UserRole(user, roleRepository.findByName("ADMIN")));
+			userRoles.add(new UserRole(user, roleRepository.findByName("USER")));
 			
 			userService.createUser(user, userRoles);
 			
@@ -178,41 +181,4 @@ public class HomeController {
 		
 		return "forgetPassword";
 	}
-	
-//	@RequestMapping(value="/changePassword")
-//	public String changePassword(Model model, Principal principal, 
-//			@ModelAttribute("newPassword") String newPassword, 
-//			@ModelAttribute("user") User user) throws Exception {
-//	
-//		User currentUser = userService.findByUsername(principal.getName());
-//		
-//		if(currentUser == null) {
-//			throw new Exception("Username not found");
-//		}
-//		
-//		if(newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")) {
-//			currentUser.setPassword(bCryptPasswordEncoder.encode(newPassword));
-//			
-//		}
-//		else {
-//			model.addAttribute("incorrectPassword", true);
-//		}
-//		
-//		UserDetails userDetails = userSecurityService.loadUserByUsername(currentUser.getUsername());
-//		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-//		
-//		currentUser.setFirstName(user.getFirstName());
-//		currentUser.setLastName(user.getLastName());
-//		currentUser.setEmail(user.getEmail());
-//		currentUser.setSocialSecurityNumber(user.getSocialSecurityNumber());
-//		currentUser.setAccountType(user.getAccountType());
-//		currentUser.setUsername(user.getUsername());
-//		
-//		
-//		model.addAttribute("updateSuccess", true);
-//		userService.save(currentUser);
-//		
-//		return "redirect:/signin";
-//	}
 }
