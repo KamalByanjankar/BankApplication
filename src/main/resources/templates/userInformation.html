@@ -5,6 +5,7 @@
 	<title>Personal Information</title>
 	<link href="/css/home.css" rel="stylesheet">
 	<link href="/css/userInformation.css" rel="stylesheet">
+	<link href="/css/userDetails.css" rel="stylesheet">
 </head>
 <head th:replace="header :: header"/>
 <head th:replace="header :: navbar"/>
@@ -68,13 +69,43 @@
 				</div>
 				<div class="form-container">
 					<label for="confirmPassword">Confirm Password</label>
-					<input class="input-field" type="password" id="confirmPassword" autofocus/>
+					<input class="input-field" type="password" id="confirmPassword" placeholder="Re-enter your password" autofocus/>
 				</div>
 			</div>
 			<button class="save-btn" type="submit">Save</button>
-			<a class="edit-btn" th:href="@{/user/userInformation/edit?address=}+${userProfile.address}">Edit</a>
 		</form>
 	</div>
 </div>
+</br>
+</br>
+<div>
+<table class="center">
+	<thead>
+		<tr>
+			<th>Address</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Zip Code</th>
+			<th>Gender</th>
+			<th>Date of Birth</th>
+			<th>Option</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr data-th-each="userData : ${user.userProfile}">
+			<td data-th-text="${userData.address}"></td>
+			<td data-th-text="${userData.city}"></td>
+			<td data-th-text="${userData.state}"></td>
+			<td data-th-text="${userData.zipCode}"></td>
+			<td data-th-text="${userData.gender}"></td>
+			<td data-th-text="${userData.dob}"></td>
+			<td><a th:href="@{/user/userInformation/edit?address=}+${userData.address}">Edit</a></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="/js/resetPassword.js"></script>
 </body>
 </html>
