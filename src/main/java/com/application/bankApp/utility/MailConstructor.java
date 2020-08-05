@@ -20,10 +20,12 @@ public class MailConstructor {
 
 	public MimeMessage constructRegistrationEmail(Locale locale, User user, String token) {
 
+		String text1 = "Please click the link to verify your account:";
 		String appUrl = "http://localhost:8080/signin?token="+token;
 		String text = "Thank you for creating an account in our bank.";
 		
-		String content = "<html><a href='"+appUrl+"'>"+appUrl+"</a></html>" + 
+		String content ="<html>"+text1+"</html>" + 
+						"<html><a href='"+appUrl+"'>"+appUrl+"</a></html>" + 
 						"<html><br/></html>" +
 						"<html><br/></html>" +
 						"<html>"+text+"</html>";

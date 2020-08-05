@@ -45,7 +45,7 @@ public class UserController {
 		return "userInformation";
 	}
 	
-	@RequestMapping(value="/userInformation/save")
+	@RequestMapping(value="/userInformation/save", method=RequestMethod.POST)
 	public String userInformation(@ModelAttribute("userProfile") UserProfile userProfile, 
 			Principal principal, Model model, @ModelAttribute("newPassword") String newPassword) {
 		

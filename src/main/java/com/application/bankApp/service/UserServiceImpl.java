@@ -154,4 +154,9 @@ public class UserServiceImpl implements UserService{
 		verificationTokenRepository.save(myToken);
 	}
 
+	@Override
+	public VerificationToken getVerificationToken(String token) {
+		return verificationTokenRepository.findByToken(token);
+	}
+
 }

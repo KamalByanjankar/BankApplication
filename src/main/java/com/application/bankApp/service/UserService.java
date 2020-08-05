@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import com.application.bankApp.model.User;
 import com.application.bankApp.model.UserProfile;
 import com.application.bankApp.security.UserRole;
+import com.application.bankApp.security.VerificationToken;
 
 public interface UserService {
 
@@ -35,5 +36,7 @@ public interface UserService {
 	User findByEmail(String userEmail);
 
 	void createResetPasswordToken(String token, User user);
+
+	VerificationToken getVerificationToken(String token);
 
 }

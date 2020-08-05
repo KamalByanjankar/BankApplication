@@ -36,9 +36,13 @@ body{
 	background-color: #cad2d9;
 	margin: 20px 0;
 	position: relative;
-	left: 150px;
+	left: 170px;
 	text-decoration: none;
 	color: black;
+}
+
+.editbtn{
+	top: 10px;
 }
 
 .save-btn:hover, .edit-btn:hover{
@@ -78,20 +82,3 @@ td.additional, th.additional {
 	text-decoration: underline;
 	color: #676666;
 }
-
-/* .edit-btn{ */
-/* 	color: black; */
-/* 	border-radius: 5px; */
-/* 	text-align: center; */
-/* 	padding: 4px 12px; */
-/* 	font-size: 15px;  */
-/* 	border: none; */
-/* 	outline:0; */
-/* 	cursor: pointer; */
-/* 	box-shadow: 0 1px 1px 0 #ccc; */
-/* 	background-color: #cad2d9; */
-/* 	margin: 20px 0; */
-/* 	position: relative; */
-/* 	left: 140px;  */
-/* 	text-decoration: none; */
-/* } */

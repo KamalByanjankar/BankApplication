@@ -2,6 +2,7 @@ package com.application.bankApp.controller;
 
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.application.bankApp.model.Account;
 import com.application.bankApp.model.AccountDetails;
 import com.application.bankApp.model.AccountType;
@@ -52,6 +52,8 @@ public class HomeController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	
+	
 	@GetMapping(value="/")
 	public String index() {
 		return "redirect:/signin";
@@ -66,8 +68,6 @@ public class HomeController {
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
 	public String signup(@ModelAttribute("user") User user, Model model,  HttpServletRequest request) throws Exception {
 		
-		model.addAttribute("classActiveNewAccount", true);
-		
 		if(userService.checkUsernameExists(user.getUsername()) != null){
 			model.addAttribute("usernameExists", true);
 			return "signup";
@@ -80,7 +80,8 @@ public class HomeController {
 		
 		else {
 			Set<UserRole> userRoles = new HashSet<>();
-			userRoles.add(new UserRole(user, roleRepository.findByName("USER")));
+			userRoles.add(new UserRole(user, roleRepository.findByName("ADMIN")));
+			
 			userService.createUser(user, userRoles);
 			
 			String token = UUID.randomUUID().toString();
@@ -97,8 +98,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/signup")
-	public String confirmUserAccount(Model model) {
-		User user = new User();		
+	public String confirmUserAccount(Locale locale, Model model) {
+		
+		User user = new User();
+		
 		model.addAttribute("user", user);
 		
 		return "signup";

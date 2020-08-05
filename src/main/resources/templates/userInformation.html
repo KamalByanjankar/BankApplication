@@ -25,34 +25,6 @@
 				<label for="ssn">Social Security Number: </label>
 				<span class="input-field" id="ssn" th:text="${user.socialSecurityNumber}"></span>
 			</div>
-			<br/>
-			<hr/>
-			<br/>
-			<h4>Additional Information</h4>
-			<div class="form-container">
-				<label for="address">Address</label>
-				<span class="input-field" id="address" th:text="${user.userProfile.address}"></span>	
-			</div>
-			<div class="form-container">
-				<label for="city">City</label>
-				<span class="input-field" id="city" th:text="${user.userProfile.city}"></span>
-			</div>
-			<div class="form-container">
-				<label for="state">State</label>
-				<span class="input-field" id="state" th:text="${user.userProfile.state}"></span>
-			</div>
-			<div class="form-container">
-				<label for="zipCode">Zip Code</label>
-				<span class="input-field" id="zipCode" th:text="${user.userProfile.zipCode}"></span>
-			</div>
-			<div class="form-container">
-				<label for="gender">Gender</label>
-				<span class="input-field" id="gender" th:text="${user.userProfile.gender}"></span>
-			</div>
-			<div class="form-container">
-				<label for="dob">Date of Birth</label>
-				<span class="input-field" id="dob" th:text="${user.userProfile.dob}"></span>
-			</div>
 		</div>
 	</div>
 	<br/>
@@ -60,25 +32,24 @@
 	<div class="additional-container">
 		<h4>Edit/Save Additional Information</h4>
 		
-		<div style="color:green; text-align:center; margin:20px 0px" th:if="${editInfo}">Click edit to change information</div>
 		<form th:action="@{/user/userInformation/save}" method="post">
 			<input type="hidden" name="id" th:value="${userProfile.id}" />
 			<div>
 				<div class="form-container">
 					<label for="address">Address</label>
-					<input class="input-field" type="text" id="address" name="address" th:value="${userProfile.address}" required="required" />	
+					<input class="input-field" type="text" id="address" name="address" th:value="${userProfile.address}" required="required" autofocus/>	
 				</div>
 				<div class="form-container">
 					<label for="city">City</label>
-					<input class="input-field" type="text" id="city" name="city" th:value="${userProfile.city}" required="required" />
+					<input class="input-field" type="text" id="city" name="city" th:value="${userProfile.city}" required="required" autofocus/>
 				</div>
 				<div class="form-container">
 					<label for="state">State</label>
-					<input class="input-field" type="text" id="state" name="state" th:value="${userProfile.state}" required="required" />
+					<input class="input-field" type="text" id="state" name="state" th:value="${userProfile.state}" required="required" autofocus/>
 				</div>
 				<div class="form-container">
 					<label for="zipCode">Zip Code</label>
-					<input class="input-field" type="text" id="zipCode" name="zipCode" th:value="${userProfile.zipCode}" required="required" />
+					<input class="input-field" type="text" id="zipCode" name="zipCode" th:value="${userProfile.zipCode}" required="required" autofocus/>
 				</div>
 				<div class="form-container">
 					<label for="gender">Gender</label>
@@ -89,20 +60,19 @@
 				</div>
 				<div class="form-container">
 					<label for="dob">Date of Birth</label>
-					<input class="input-field" type="text" id="dob" name="dob" th:value="${userProfile.dob}" required="required" />
+					<input class="input-field" type="text" id="dob" name="dob" th:value="${userProfile.dob}" required="required" autofocus/>
 				</div>
 				<div class="form-container">
 					<label for="newPassword">Password</label>
-					<input class="input-field" type="password" id="newPassword" name="newPassword" placeholder="Enter new Password to change"/>
+					<input class="input-field" type="password" id="newPassword" name="newPassword" placeholder="Enter new Password to change" autofocus/>
 				</div>
 				<div class="form-container">
 					<label for="confirmPassword">Confirm Password</label>
-					<input class="input-field" type="password" id="confirmPassword"/>
+					<input class="input-field" type="password" id="confirmPassword" autofocus/>
 				</div>
 			</div>
 			<button class="save-btn" type="submit">Save</button>
-			
-			<a class="edit-btn" th:href="@{/user/userInformation/edit?address=}+${user.userProfile.address}">Edit</a>
+			<a class="edit-btn" th:href="@{/user/userInformation/edit?address=}+${userProfile.address}">Edit</a>
 		</form>
 	</div>
 </div>

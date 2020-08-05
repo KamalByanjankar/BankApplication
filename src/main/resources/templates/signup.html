@@ -12,90 +12,92 @@
 		<h2>Please Sign up</h2>
 		<div th:if="${usernameExists}"><span style="color:red">Username already exists</span></div>
 		<div th:if="${emailExists}"><span style="color:red">Email already exists</span></div>
-		<div th:if="${signupSuccess}">Please check your email to verify your account.</div>
+		<div th:if="${signupSuccess}" style="color:green; margin-bottom:10px">Please check your email to verify your account.</div>
 		
-		<div th:classappend="${classActiveNewAccount}? 'active'">
-			<form th:action="@{/signup}" method="post">
-			<table>
-				<tbody>
-					<tr>
-						<td class="title">
-							<label for="firstName">First Name</label>
-						</td>
-						<td class="input-field">
-							<input class="input" type="text" th:value="${firstName}" name="firstName" id="firstName" required="required" autofocus>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">
-							<label for="lastName">Last Name</label>
-						</td>
-						<td class="input-field">
-							<input class="input" type="text" th:value="${lastName}" name="lastName" id="lastName" required="required" autofocus>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">
-							<label for="email">Email</label>
-						</td>
-						<td class="input-field">
-							<input class="input" type="text" th:value="${email}" name="email" id="email" required="required" autofocus>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">
-							<label for="socialSecurityNumber">Social Security Number</label>
-						</td>
-						<td class="input-field">
-							<input class="input" type="text" th:value="${socialSecurityNumber}" name="socialSecurityNumber" id="socialSecurityNumber" required="required" autofocus>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">
-							<label for="accountType">Account Type</label>
-						</td>
-						<td class="input-field">
-							<select class="input" th:value="${accountType}" name="accountType" id="accountType" required="required" autofocus>
-								<option selected="selected" disabled="disabled">Select an account type to open</option>
-								<option>Checking</option>	
-								<option>Saving</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">
-							<label for="username">Username</label>
-						</td>
-						<td class="input-field">
-							<input class="input" type="text" th:value="${username}" name="username" id="username" required="required" autofocus>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">
-							<label for="password">Password</label>
-						</td>
-						<td class="input-field">
-							<input class="input" type="password" name="password" id="password" required="required" autofocus>
-							<span><button id="toggleShowPassword" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">
-							<label for="confirmPassword">Confirm Password</label>
-						</td>
-						<td class="input-field">
-							<input class="input" type="password" id="confirmPassword" required="required" autofocus>
-							<span><button id="toggleShowConfirmPassword" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		
-			<button class="btn" type="submit">Create Account</button>
-				
-			<p class="link">Already have an account? <a th:href="@{/signin}">Sign in</a><p> 
+		<div>
+			<div>
+				<form th:action="@{/signup}" method="post">
+				<table>	
+					<tbody>
+						<tr>
+							<td class="title">
+								<label for="firstName">First Name</label>
+							</td>
+							<td class="input-field">
+								<input class="input" type="text" th:value="${firstName}" name="firstName" id="firstName" required="required" autofocus>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">
+								<label for="lastName">Last Name</label>
+							</td>
+							<td class="input-field">
+								<input class="input" type="text" th:value="${lastName}" name="lastName" id="lastName" required="required" autofocus>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">
+								<label for="email">Email</label>
+							</td>
+							<td class="input-field">
+								<input class="input" type="text" th:value="${email}" name="email" id="email" required="required" autofocus>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">
+								<label for="socialSecurityNumber">Social Security Number</label>
+							</td>
+							<td class="input-field">
+								<input class="input" type="text" th:value="${socialSecurityNumber}" name="socialSecurityNumber" id="socialSecurityNumber" required="required" autofocus>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">
+								<label for="accountType">Account Type</label>
+							</td>
+							<td class="input-field">
+								<select class="input" th:value="${accountType}" name="accountType" id="accountType" required="required" autofocus>
+									<option selected="selected" disabled="disabled">Select an account type to open</option>
+									<option>Checking</option>	
+									<option>Saving</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">
+								<label for="username">Username</label>
+							</td>
+							<td class="input-field">
+								<input class="input" type="text" th:value="${username}" name="username" id="username" required="required" autofocus>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">
+								<label for="password">Password</label>
+							</td>
+							<td class="input-field">
+								<input class="input" type="password" name="password" id="password" required="required" autofocus>
+								<span><button id="toggleShowPassword" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="title">
+								<label for="confirmPassword">Confirm Password</label>
+							</td>
+							<td class="input-field">
+								<input class="input" type="password" id="confirmPassword" required="required" autofocus>
+								<span><button id="toggleShowConfirmPassword" class="fas fa-eye toggler-ico" type="button">&nbsp;</button></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			
-			</form>
+				<button class="btn" type="submit">Create Account</button>
+					
+				<p class="link">Already have an account? <a th:href="@{/signin}">Sign in</a><p> 
+				
+				</form>
+			</div>
 		</div>
 	</div>
 </div>	
